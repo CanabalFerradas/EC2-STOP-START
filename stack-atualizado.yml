@@ -41,7 +41,7 @@ Resources:
         Statement:
           - Effect: "Allow"
             Principal:
-              AWS: "arn:aws:iam::938573957117:root"     
+              AWS: "arn:aws:iam::Account:root"     
               Service:
                 - "lambda.amazonaws.com"
                 - "ec2.amazonaws.com"
