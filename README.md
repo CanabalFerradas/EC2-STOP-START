@@ -4,6 +4,9 @@
 
 ## Desligamento Automático de Instâncias EC2
 
+```
+![EC2-STOP-START](img.png)
+```
 ## Objetivo
 
 Este guia tem como objetivo fornecer um método para automatizar o início e a parada de instâncias EC2 em várias contas da AWS. A automação será baseada em horários específicos e tags aplicadas às instâncias.
