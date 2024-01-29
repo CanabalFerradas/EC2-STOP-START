@@ -1,4 +1,9 @@
 AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  AccountId:
+    Description: "AWS Account ID"
+    Type: String
+
 Resources:
   StartStopPolicy:
     Type: "AWS::IAM::ManagedPolicy"
@@ -34,7 +39,7 @@ Resources:
         Statement:
           - Effect: "Allow"
             Principal:
-              AWS: "arn:aws:iam::ACCOUNT:root"            
+              AWS: !Sub "arn:aws:iam::${AccountId}:root"            
               Service:
                 - "lambda.amazonaws.com"
                 - "ec2.amazonaws.com"                

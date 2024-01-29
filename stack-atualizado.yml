@@ -1,9 +1,8 @@
 AWSTemplateFormatVersion: "2010-09-09"
-
 Parameters:
-  LayerArn:
+  AccountId:
+    Description: "AWS Account ID"
     Type: String
-    Description: ARN da camada AWS Lambda
 
 Resources:
   StartStopPolicy:
@@ -29,7 +28,6 @@ Resources:
               - "sts:AssumeRole*"
               - "sts:Decode*"
               - "sts:Set*"
-              - "sts:SetSessionPolicy"
             Resource: "*"
 
   StartStopRole:
@@ -41,25 +39,11 @@ Resources:
         Statement:
           - Effect: "Allow"
             Principal:
-              AWS: "arn:aws:iam::Account:root"     
+              AWS: !Sub "arn:aws:iam::${AccountId}:root"            
               Service:
                 - "lambda.amazonaws.com"
-                - "ec2.amazonaws.com"
+                - "ec2.amazonaws.com"                
             Action:
               - "sts:AssumeRole"
       ManagedPolicyArns:
         - !Ref StartStopPolicy
-
-  MyLambdaFunction:
-    Type: "AWS::Lambda::Function"
-    Properties:
-      Handler: "lambda-stop-start.lambda_handler"
-      Role: !GetAtt StartStopRole.Arn
-      FunctionName: "operacao-ec2-start-stop"
-      Runtime: "python3.8"
-      Layers:
-        - !Ref LayerArn
-      Timeout: 60
-      Code:
-        S3Bucket: "lainux"
-        S3Key: "lambda-stop-start.zip"
